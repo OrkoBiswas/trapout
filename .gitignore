@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.env*
+!.env.example
+.DS_Store
+verification/
+*.log
+/aghori.mp4
+/background music.mp3
+/evil talk.mp3
+/Moving Dark Clouds Cinematic Background _ Premium Video Footage _ 4K.mp4

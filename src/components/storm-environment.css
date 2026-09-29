@@ -1,0 +1,98 @@
+.storm-environment {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+
+.storm-rain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.62;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 75%, transparent);
+}
+
+.storm-rain-streak {
+  position: absolute;
+  top: -18vh;
+  left: var(--rain-left);
+  width: 1px;
+  height: var(--rain-height);
+  opacity: var(--rain-opacity);
+  background: linear-gradient(to bottom, transparent, rgb(155 200 219 / 70%), transparent);
+  animation: storm-rain-fall var(--rain-duration) var(--rain-delay) linear infinite;
+}
+
+.storm-mist {
+  position: absolute;
+  width: 140%;
+  left: -20%;
+  bottom: -20%;
+  height: 62%;
+  opacity: 0.22;
+  background:
+    radial-gradient(ellipse at 22% 68%, rgb(104 147 164 / 35%), transparent 41%),
+    radial-gradient(ellipse at 78% 66%, rgb(101 133 149 / 25%), transparent 43%);
+  filter: blur(24px);
+  animation: storm-mist-drift 24s ease-in-out infinite alternate;
+}
+
+.storm-mist--foreground {
+  bottom: -24%;
+  height: 52%;
+  opacity: 0.26;
+  background:
+    radial-gradient(ellipse at 46% 58%, rgb(128 156 165 / 27%), transparent 40%),
+    radial-gradient(ellipse at 80% 78%, rgb(82 112 124 / 20%), transparent 48%);
+  animation-duration: 31s;
+  animation-delay: -13s;
+  animation-direction: alternate-reverse;
+}
+
+.storm-lightning {
+  position: absolute;
+  opacity: 0;
+  width: 65%;
+  height: 90%;
+  top: -34%;
+  left: 29%;
+  background: radial-gradient(ellipse at center, #badfeb 0%, #7394a9 17%, transparent 65%);
+  mix-blend-mode: screen;
+}
+
+.storm-lightning--near {
+  width: 45%;
+  height: 67%;
+  top: -15%;
+  left: 56%;
+  background: radial-gradient(ellipse at center, #afd5e1, rgb(113 154 175 / 66%) 18%, transparent 67%);
+}
+
+.storm-environment[data-active="false"] .storm-rain-streak,
+.storm-environment[data-active="false"] .storm-mist {
+  animation-play-state: paused;
+}
+
+@keyframes storm-rain-fall {
+  from { transform: translate3d(7vw, 0, 0) rotate(16deg); }
+  to { transform: translate3d(-24vw, 142vh, 0) rotate(16deg); }
+}
+
+@keyframes storm-mist-drift {
+  from { transform: translate3d(-4%, 3%, 0); }
+  to { transform: translate3d(5%, -5%, 0); }
+}
+
+@media (max-width: 640px) {
+  .storm-rain { opacity: 0.48; }
+  .storm-rain-streak:nth-child(3n) { display: none; }
+  .storm-mist { filter: blur(18px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .storm-environment { display: none; }
+  .storm-rain-streak,
+  .storm-mist { animation: none; }
+}
